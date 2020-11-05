@@ -1,4 +1,4 @@
-// Bubble sort -- not the best sorting method
+// Bubble sort -- slowest sorting method in terms of time complexity
 function swap(array, i, j) {
     const tmp = array[i];
     array[i] = array[j];
@@ -19,7 +19,7 @@ function bubbleSort(array) {
     return array;
 }
 
-// Merge sort 
+// Merge sort -- fastest method O(nlog(n))
 function mergeSort(array) {
     if (array.length <= 1) {
         return array;
@@ -55,5 +55,32 @@ function merge(left, right, array) {
     return array;
 }
 
+// Quick sort -- the most commonly used method
+function quickSort(array, start = 0, end = array.length) {
+    if (start >= end) {
+        return array;
+    }
+    const middle = partition(array, start, end);
+    array = quickSort(array, start, middle);
+    array = quickSort(array, middle + 1, end);
+    return array;
+
+}
+
+function partition(array, start, end) {
+    const pivot = array[end - 1];
+    let j = start;
+    for (let i = start; i < end - 1; i++) {
+        if (array[i] <= pivot) {
+            swap(array, i, j);
+            j++
+        }
+    }
+    swap(array, end - 1, j);
+    return j;
+}
+
 let array = [21, 23, 3, 31, 13, 15, 32, 34, 33]
 console.log(bubbleSort(array))
+console.log(mergeSort(array))
+console.log(quickSort(array))
